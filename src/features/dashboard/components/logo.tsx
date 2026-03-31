@@ -1,0 +1,88 @@
+// components/ui/stayly-logo.tsx
+
+interface StaylyLogoProps {
+    isCollapsed: boolean;
+}
+
+export const StaylyLogo = ({ isCollapsed }: StaylyLogoProps) => {
+    const IconGraphic = (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="shrink-0"
+        >
+            <g filter="url(#filter0_stayly)">
+                <rect width="48" height="48" rx="12" fill="#15803D" />
+                <rect width="48" height="48" fill="url(#paint0_stayly)" />
+                <g filter="url(#filter1_stayly)">
+                    <path opacity="0.5" d="M32.375 9.375C36.1029 9.375 39.125 12.3971 39.125 16.125C39.125 19.8529 36.1029 22.875 32.375 22.875H25.625L25.625 16.125C25.625 12.3971 28.6471 9.375 32.375 9.375Z" fill="url(#paint1_stayly)" />
+                    <path d="M9.875 16.125C9.875 12.3971 12.8971 9.375 16.625 9.375C20.3529 9.375 23.375 12.3971 23.375 16.125V22.875H16.625C12.8971 22.875 9.875 19.8529 9.875 16.125Z" fill="url(#paint2_stayly)" />
+                    <path d="M16.625 38.625C12.8971 38.625 9.875 35.6029 9.875 31.875C9.875 28.1471 12.8971 25.125 16.625 25.125H23.375V31.875C23.375 35.6029 20.3529 38.625 16.625 38.625Z" fill="url(#paint3_stayly)" />
+                    <path d="M39.125 31.875C39.125 35.6029 36.1029 38.625 32.375 38.625C28.6471 38.625 25.625 35.6029 25.625 31.875V25.125L32.375 25.125C36.1029 25.125 39.125 28.1471 39.125 31.875Z" fill="url(#paint4_stayly)" />
+                </g>
+                <rect x="1" y="1" width="46" height="46" rx="11" stroke="url(#paint5_stayly)" strokeWidth="2" />
+            </g>
+            <defs>
+                <filter id="filter0_stayly" x="0" y="-3" width="48" height="54" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                    <feOffset dy="-3" />
+                    <feGaussianBlur stdDeviation="1.5" />
+                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+                    <feBlend mode="normal" in2="shape" result="effect1_innerShadow_stayly" />
+                </filter>
+                <filter id="filter1_stayly" x="6.875" y="5.25" width="35.25" height="42" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                    <feMorphology radius="1.5" operator="erode" in="SourceAlpha" result="effect1_dropShadow_stayly" />
+                    <feOffset dy="2.25" />
+                    <feGaussianBlur stdDeviation="2.25" />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix type="matrix" values="0 0 0 0 0.141176 0 0 0 0 0.141176 0 0 0 0 0.141176 0 0 0 0.1 0" />
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_stayly" />
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_stayly" result="shape" />
+                </filter>
+                <linearGradient id="paint0_stayly" x1="24" y1="0" x2="26" y2="48" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.12" />
+                </linearGradient>
+                <linearGradient id="paint1_stayly" x1="32.375" y1="9.375" x2="32.375" y2="22.875" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.5" />
+                </linearGradient>
+                <linearGradient id="paint2_stayly" x1="24.5" y1="9.375" x2="24.5" y2="38.625" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.5" />
+                </linearGradient>
+                <linearGradient id="paint3_stayly" x1="24.5" y1="9.375" x2="24.5" y2="38.625" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.5" />
+                </linearGradient>
+                <linearGradient id="paint4_stayly" x1="24.5" y1="9.375" x2="24.5" y2="38.625" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.5" />
+                </linearGradient>
+                <linearGradient id="paint5_stayly" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.12" />
+                    <stop offset="1" stopColor="white" stopOpacity="0" />
+                </linearGradient>
+            </defs>
+        </svg>
+    );
+
+    return (
+        <div className="flex items-center gap-3">
+            {IconGraphic}
+            {!isCollapsed && (
+                <span className="text-xl font-bold tracking-tight text-white">
+                    stayly
+                </span>
+            )}
+        </div>
+    );
+};
