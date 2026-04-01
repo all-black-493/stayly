@@ -1,4 +1,4 @@
-import DashboardView from '@/features/dashboard/views/dashboard-view'
+import { DashboardView } from '@/features/dashboard/views/dashboard-view'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: "Home" }

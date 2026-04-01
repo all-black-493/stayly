@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum booking_status {
+  PENDING
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELLED
+}
+
+enum payment_status {
+  UNPAID
+  PARTIAL
+  PAID
+  REFUNDED
+}
+
+model organizations {
+  id          String   @id 
+  name        String
+  slug        String   @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  guests      guests[]
+  bookings    bookings[]
+  ledgers     financial_ledgers[]
+
+  @@index([slug])
+}
+
+model guests {
+  id              String   @id @default(cuid())
+  organization_id String
+  first_name      String
+  last_name       String
+  email           String?
+  phone           String?
+  id_number       String?  
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  organization    organizations @relation(fields: [organization_id], references: [id])
+  bookings        bookings[]
+
+  @@index([organization_id])
+  @@index([email])
+}
+
+model bookings {
+  id              String         @id @default(cuid())
+  organization_id String
+  guest_id        String
+  room_id         String         
+  
+  check_in        DateTime
+  check_out       DateTime
+  status          booking_status @default(PENDING)
+  
+  total_price     Decimal        @db.Decimal(12, 2)
+  currency        String         @default("USD")
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+
+  organization    organizations  @relation(fields: [organization_id], references: [id])
+  guest           guests         @relation(fields: [guest_id], references: [id])
+  payments        payments[]
+
+  @@index([organization_id])
+  @@index([room_id])
+  @@index([check_in, check_out])
+}
+
+model payments {
+  id              String         @id @default(cuid())
+  booking_id      String
+  amount          Decimal        @db.Decimal(12, 2)
+  status          payment_status @default(UNPAID)
+  method          String?        
+  provider_ref    String?        
+  
+  created_at      DateTime       @default(now())
+
+  booking         bookings       @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+
+  @@index([booking_id])
+}
+
+model financial_ledgers {
+  id              String   @id @default(cuid())
+  organization_id String
+  month           Int      
+  year            Int
+  total_revenue   Decimal  @db.Decimal(15, 2)
+  total_bookings  Int
+  
+  updated_at      DateTime @updatedAt
+
+  organization    organizations @relation(fields: [organization_id], references: [id])
+
+  @@unique([organization_id, month, year])
+}

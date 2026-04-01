@@ -8,7 +8,7 @@ export const tenantRouter = os.router({
     getDashboardStats: os.getDashboardStats
         .use(tenantMiddleware)
         .handler(async ({ context }) => {
-            return { occupancyRate: 75, revenue: 1500, checkInsToday: 3 };
+            return { occupancyRate: 75, revenue: 1500, checkInsToday: 8 };
         }),
 
     listBookings: os.listBookings
@@ -26,7 +26,6 @@ export const tenantRouter = os.router({
     updateRoom: os.updateRoom
         .use(tenantMiddleware)
         .handler(async ({ input, context, errors }) => {
-            // SECURITY: Pre-flight check to verify ownership
             const existingRoom = await context.sanityClient.fetch(
                 `*[_type == "room" && _id == $id][0]`,
                 { id: input.roomId }
@@ -71,7 +70,12 @@ export const tenantRouter = os.router({
                 type: input.type,
                 price: input.pricePerNight,
                 capacity: input.capacity,
-                description: input.description,
+                description: input.description ? [
+                    {
+                        _type: 'block',
+                        children: [{ _type: 'span', text: input.description }]
+                    }
+                ] : undefined,
                 slug: {
                     _type: 'slug',
                     current: input.name.toLowerCase().replace(/\s+/g, '-')

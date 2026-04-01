@@ -34,7 +34,11 @@ export function createQueryClient() {
             },
 
             hydrate: {
-                deserializeData(data: { json: unknown; meta: StandardRPCJsonSerializedMetaItem[] }) {
+                deserializeData(
+                    data: {
+                        json: unknown;
+                        meta: StandardRPCJsonSerializedMetaItem[]
+                    }) {
                     return serializer.deserialize(data.json, data.meta)
                 },
             },

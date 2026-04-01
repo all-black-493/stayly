@@ -92,7 +92,6 @@ export function DashboardSidebar() {
         );
     }
 
-    // Tailored these to standard Guesthouse application routing.
     const mainMenuItems: MenuItem[] = [
         {
             title: "Dashboard",
@@ -101,22 +100,22 @@ export function DashboardSidebar() {
         },
         {
             title: "Bookings",
-            url: "/bookings",
+            url: `/${orgId}/bookings`,
             icon: CalendarDays
         },
         {
             title: "Rooms",
-            url: "/rooms",
+            url: `/${orgId}/rooms`,
             icon: BedDouble,
         },
         {
             title: "Guests",
-            url: "/guests",
+            url: `/${orgId}/guests`,
             icon: Users
         },
         {
             title: "Finances",
-            url: "/finances",
+            url: `/${orgId}/finances`,
             icon: CreditCard
         }
     ]

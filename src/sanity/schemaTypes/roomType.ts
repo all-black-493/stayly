@@ -25,6 +25,7 @@ export const roomType = defineType({
             }
         }),
         defineField({ name: 'price', type: 'number', title: 'Price per Night' }),
+        defineField({ name: 'capacity', type: 'number', title: 'Max Guest Capacity' }),
         defineField({
             name: 'amenities',
             type: 'array',

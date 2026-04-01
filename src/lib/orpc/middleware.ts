@@ -45,7 +45,6 @@ export const tenantMiddleware = authMiddleware.concat(async ({ next, context, er
     const tenantId = context.orgId;
 
     const scopedSanityClient = {
-        // 1. Scoped Fetch (Your clever regex logic)
         fetch: async (query: string, params: Record<string, any> = {}) => {
             const fullParams = { ...params, tenantOrgId: tenantId };
             const filteredQuery = query.includes("clerkOrgId")
