@@ -24,7 +24,7 @@ export default function TestRoomPage() {
         createRoom.mutate({
             name: "Test Deluxe Suite",
             description: "A beautiful test room created via oRPC",
-            pricePerNight: 150,
+            price: 150,
             capacity: 2,
             type: "Deluxe",
         })

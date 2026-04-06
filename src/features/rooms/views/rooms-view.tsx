@@ -1,9 +1,7 @@
-import { auth } from '@clerk/nextjs/server'
-import { PageHeader } from '@/components/page-header'
+import { Skeleton } from '@/components/ui/skeleton'
 import { getQueryClient, HydrateClient } from '@/lib/hydration'
 import { orpc } from '@/lib/orpc.tanstack'
 import { Suspense } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
 import { CreateRoomHeader } from '../components/create-room-header'
 import { RoomsTable } from '../components/rooms-table'
 

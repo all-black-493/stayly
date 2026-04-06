@@ -8,7 +8,49 @@ export const tenantRouter = os.router({
     getDashboardStats: os.getDashboardStats
         .use(tenantMiddleware)
         .handler(async ({ context }) => {
-            return { occupancyRate: 75, revenue: 1500, checkInsToday: 8 };
+            const { sanityClient } = context;
+
+            const [totalRooms, activeBookings, revenue, checkInsToday] = await Promise.all([
+                sanityClient.fetch(`count(*[_type == "room"])`),
+                sanityClient.fetch(
+                    `count(*[_type == "booking" && status == "confirmed" && checkIn <= now() && checkOut >= now()])`
+                ),
+                sanityClient.fetch(
+                    `math::sum(*[_type == "booking" && status == "confirmed"].totalPrice)`
+                ),
+                sanityClient.fetch(
+                    `count(*[_type == "booking" && checkIn >= "${new Date().toISOString().split('T')[0]}T00:00:00Z"])`
+                )
+            ]);
+
+            const occupancyRate = totalRooms > 0
+                ? Math.round((activeBookings / totalRooms) * 100)
+                : 0;
+
+            return { occupancyRate, revenue, checkInsToday };
+        }),
+
+    createBooking: os.createBooking
+        .use(tenantMiddleware)
+        .handler(async ({ input, context }) => {
+            const { sanityClient } = context;
+
+            const result = await sanityClient.create({
+                _type: 'booking',
+                room: {
+                    _type: 'reference',
+                    _ref: input.roomId
+                },
+                guest: {
+                    _type: 'reference',
+                    _ref: input.guestId
+                },
+                checkIn: input.checkIn,
+                checkOut: input.checkOut,
+                status: input.status,
+            });
+
+            return { id: result._id, success: true };
         }),
 
     listBookings: os.listBookings
@@ -20,7 +62,7 @@ export const tenantRouter = os.router({
     listRooms: os.listRooms
         .use(tenantMiddleware)
         .handler(async ({ context }) => {
-            return await context.sanityClient.fetch(`*[_type == "room"]`);
+            return await context.sanityClient.fetch(`*[_type == "room"] | order(_createdAt desc)`);
         }),
 
     updateRoom: os.updateRoom
@@ -68,7 +110,7 @@ export const tenantRouter = os.router({
                 _type: 'room',
                 name: input.name,
                 type: input.type,
-                price: input.pricePerNight,
+                price: input.price,
                 capacity: input.capacity,
                 description: input.description ? [
                     {

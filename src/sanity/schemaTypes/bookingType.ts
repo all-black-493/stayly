@@ -7,6 +7,13 @@ export const bookingType = defineType({
     type: 'document',
     icon: CalendarIcon,
     fields: [
+        defineField({
+            name: 'clerkOrgId',
+            type: 'string',
+            title: 'Clerk Organization ID',
+            readOnly: true,
+            validation: (Rule) => Rule.required(),
+        }),
         defineField({ name: 'guest', type: 'reference', to: [{ type: 'guest' }] }),
         defineField({ name: 'room', type: 'reference', to: [{ type: 'room' }] }),
         defineField({ name: 'checkIn', type: 'date', title: 'Check-in Date' }),

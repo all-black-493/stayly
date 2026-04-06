@@ -25,7 +25,7 @@ export function CreateRoomHeader({ orgId }: { orgId: string }) {
         createRoom({
             name: "Room 101",
             type: "Single",
-            pricePerNight: 80,
+            price: 80,
             capacity: 1,
             description: "Standard single room with garden view."
         })

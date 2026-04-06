@@ -17,6 +17,22 @@ export const tenantContract = baseContract
       .input(z.object({ status: z.string().optional() }))
       .output(z.array(z.any())),
 
+    createBooking: oc.route({
+      method: 'POST',
+      path: '/tenant/bookings'
+    })
+      .input(z.object({
+        roomId: z.string(),
+        guestId: z.string(),
+        checkIn: z.string(),
+        checkOut: z.string(),
+        status: z.enum(['pending', 'confirmed', 'cancelled', 'checked-out']).default('confirmed'),
+      }))
+      .output(z.object({
+        id: z.string(),
+        success: z.boolean(),
+      })),
+
     listRooms: oc.route({
       method: 'GET',
       path: '/tenant/rooms'
@@ -45,7 +61,7 @@ export const tenantContract = baseContract
       .input(z.object({
         name: z.string().min(2),
         description: z.string().optional(),
-        pricePerNight: z.number().positive(),
+        price: z.number().positive(),
         capacity: z.number().int().positive(),
         type: z.enum(['Single', 'Double', 'Suite', 'Deluxe']),
       }))
